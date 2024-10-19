@@ -2,4 +2,4 @@ pre-commit:
     commands:
       biome:
         glob: "*.{js,ts,jsx,tsx}"
-        run: bunx biome format ./playwright/src --write
+        run: bunx biome format ./src --write
