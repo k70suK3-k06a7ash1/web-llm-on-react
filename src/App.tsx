@@ -1,10 +1,10 @@
 import { useState ,useEffect} from 'react'
 
 import './App.css'
-import { CreateMLCEngine } from '@mlc-ai/web-llm';
+import { CreateMLCEngine, MLCEngine } from '@mlc-ai/web-llm';
 import { initProgressCallback } from './helpers/initProgressCallback';
 function App () {
-  const [engine, setEngine] = useState<any>(null); // エンジン
+  const [engine, setEngine] = useState<MLCEngine | null>(null); 
   const [inputText, setInputText] = useState<string>(''); // 入力
   const [response, setResponse] = useState<string>(''); // 出力
   const [loading, setLoading] = useState<boolean>(false); // ロード中
@@ -13,7 +13,6 @@ function App () {
   const initializeEngine = async () => {
     setLoading(true);
     try {
-   
       const engine = await CreateMLCEngine(
         "Qwen2.5-1.5B-Instruct-q4f16_1-MLC",
         { initProgressCallback: initProgressCallback(setResponse) },
