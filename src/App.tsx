@@ -2,22 +2,21 @@ import { useState ,useEffect} from 'react'
 
 import './App.css'
 import { CreateMLCEngine } from '@mlc-ai/web-llm';
+import { initProgressCallback } from './helpers/initProgressCallback';
 function App () {
   const [engine, setEngine] = useState<any>(null); // エンジン
   const [inputText, setInputText] = useState<string>(''); // 入力
   const [response, setResponse] = useState<string>(''); // 出力
   const [loading, setLoading] = useState<boolean>(false); // ロード中
   
-  // LLMエンジンの初期化
+ 
   const initializeEngine = async () => {
     setLoading(true);
     try {
-      const initProgressCallback = (initProgress: any) => {
-        setResponse(initProgress["text"]);
-      }
+   
       const engine = await CreateMLCEngine(
         "Qwen2.5-1.5B-Instruct-q4f16_1-MLC",
-        { initProgressCallback: initProgressCallback },
+        { initProgressCallback: initProgressCallback(setResponse) },
       );
       setEngine(engine)
     } catch (error) {
