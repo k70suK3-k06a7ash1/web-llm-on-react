@@ -22,8 +22,7 @@ export const useLlmEngine = () => {
 				dispatch({ type: "START_LOADING" });
 				await asyncFunc(setResponse);
 			} catch (error) {
-				// set error message
-				dispatch({ type: "SET_RESPONSE", payload: "Error" });
+				dispatch({ type: "SET_RESPONSE", payload: JSON.stringify(error) });
 				console.error(error);
 			} finally {
 				dispatch({ type: "STOP_LOADING" });
