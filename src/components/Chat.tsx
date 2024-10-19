@@ -7,7 +7,7 @@ export function Chat() {
 	const [inputText, setInputText] = useState<string>(""); // 入力
 	const { state, dispatch, withLoadingHasSetResponse, engine } = useLlmEngine();
 
-	const handleClick = (inputText: string) => async () =>
+	const handleClick = (inputText: string) => () =>
 		withLoadingHasSetResponse(async (setResponse) => {
 			// メッセージの準備
 			const messages: ChatCompletionMessageParam[] = [
