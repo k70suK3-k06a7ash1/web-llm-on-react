@@ -8,7 +8,6 @@ function App () {
   const [inputText, setInputText] = useState<string>(''); // 入力
   const [response, setResponse] = useState<string>(''); // 出力
   const [loading, setLoading] = useState<boolean>(false); // ロード中
-  
  
   const initializeEngine = async () => {
     setLoading(true);
@@ -41,7 +40,8 @@ function App () {
         { role: "user", content: inputText },
       ]
 
-      // 推論の実行
+      if (!engine) return
+    
       const reply = await engine.chat.completions.create({
         messages,
       });
