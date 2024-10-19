@@ -13,9 +13,7 @@ export function Chat() {
 			const messages: ChatCompletionMessageParam[] = [
 				{ role: "user", content: inputText },
 			];
-
 			if (!engine) return;
-
 			const reply = await engine.chat.completions.create({
 				messages,
 			});
