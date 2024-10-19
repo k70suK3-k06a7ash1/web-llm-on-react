@@ -1,6 +1,9 @@
 import { EngineState, EngineAction } from "../types";
 
-export  const engineReducer = (state: EngineState, action: EngineAction): EngineState => {
+export const engineReducer = (
+	state: EngineState,
+	action: EngineAction,
+): EngineState => {
 	switch (action.type) {
 		case "START_LOADING":
 			return { ...state, loading: true };

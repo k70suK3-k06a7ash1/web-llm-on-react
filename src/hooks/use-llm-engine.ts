@@ -10,33 +10,36 @@ export const useLlmEngine = () => {
 	const [state, dispatch] = useReducer(engineReducer, initialState);
 
 	const setResponse = (message: string) =>
-        dispatch({ type: "SET_RESPONSE", payload: message });
-    
- const withLoading  =(setResponse: Dispatch<string>) =>  async (
-  asyncFunc: (setResponse: Dispatch<string>) => Promise<void>, 
-  dispatch: Dispatch<EngineAction>, 
-): Promise<void> => {
-  try {
-    dispatch({ type: "START_LOADING" });
-    await asyncFunc(setResponse);
-  } catch (error) {
-    // set error message
-    dispatch({ type: "SET_RESPONSE", payload: "Error" });
-    console.error(error);
-  } finally {
-    dispatch({ type: "STOP_LOADING" });
-  }
-};
+		dispatch({ type: "SET_RESPONSE", payload: message });
 
-    const withLoadingHasSetResponse = withLoading(setResponse)
+	const withLoading =
+		(setResponse: Dispatch<string>) =>
+		async (
+			asyncFunc: (setResponse: Dispatch<string>) => Promise<void>,
+			dispatch: Dispatch<EngineAction>,
+		): Promise<void> => {
+			try {
+				dispatch({ type: "START_LOADING" });
+				await asyncFunc(setResponse);
+			} catch (error) {
+				// set error message
+				dispatch({ type: "SET_RESPONSE", payload: "Error" });
+				console.error(error);
+			} finally {
+				dispatch({ type: "STOP_LOADING" });
+			}
+		};
 
-	const initializeEngine = async () =>   withLoadingHasSetResponse(async (setResponse) => {
-    const engine = await CreateMLCEngine(
-      "Qwen2.5-1.5B-Instruct-q4f16_1-MLC",
-      { initProgressCallback: initProgressCallback(setResponse) },
-    );
-    setEngine(engine);
-  }, dispatch);
+	const withLoadingHasSetResponse = withLoading(setResponse);
+
+	const initializeEngine = async () =>
+		withLoadingHasSetResponse(async (setResponse) => {
+			const engine = await CreateMLCEngine(
+				"Qwen2.5-1.5B-Instruct-q4f16_1-MLC",
+				{ initProgressCallback: initProgressCallback(setResponse) },
+			);
+			setEngine(engine);
+		}, dispatch);
 
 	useEffect(() => {
 		(async () => {

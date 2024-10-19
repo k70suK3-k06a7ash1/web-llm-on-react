@@ -5,11 +5,10 @@ import { ChatCompletionMessageParam } from "@mlc-ai/web-llm";
 import { useLlmEngine } from "../hooks/use-llm-engine";
 export function Chat() {
 	const [inputText, setInputText] = useState<string>(""); // 入力
-	const { state, dispatch,withLoadingHasSetResponse,  engine } = useLlmEngine();
+	const { state, dispatch, withLoadingHasSetResponse, engine } = useLlmEngine();
 
-  const handleClick =  (inputText:string) => async() =>withLoadingHasSetResponse(async (setResponse) => {
-   
-	
+	const handleClick = (inputText: string) => async () =>
+		withLoadingHasSetResponse(async (setResponse) => {
 			// メッセージの準備
 			const messages: ChatCompletionMessageParam[] = [
 				{ role: "user", content: inputText },
@@ -23,10 +22,8 @@ export function Chat() {
 			if (reply.choices[0].message.content) {
 				setResponse(reply.choices[0].message.content);
 			}
+		}, dispatch);
 
-  },dispatch)
-  
- 
 	// UI
 	return (
 		<div style={{ padding: "20px" }}>
