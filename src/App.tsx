@@ -30,10 +30,9 @@ function App () {
   }
 
   useEffect(() => {
-    const init = async () => {
+   (async () => {
       await initializeEngine();
-    };
-    init();
+    })();
   }, []); 
 
   const handleClick = async () => {
