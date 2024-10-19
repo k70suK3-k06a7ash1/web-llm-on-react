@@ -1,7 +1,7 @@
 import { useState ,useEffect} from 'react'
 
 import './App.css'
-import { CreateMLCEngine, MLCEngine } from '@mlc-ai/web-llm';
+import { ChatCompletionMessageParam, CreateMLCEngine, MLCEngine } from '@mlc-ai/web-llm';
 import { initProgressCallback } from './helpers/initProgressCallback';
 function App () {
   const [engine, setEngine] = useState<MLCEngine | null>(null); 
@@ -36,7 +36,7 @@ function App () {
     setLoading(true);
     try {
       // メッセージの準備
-      const messages: any = [
+      const messages: ChatCompletionMessageParam[] = [
         { role: "user", content: inputText },
       ]
 
