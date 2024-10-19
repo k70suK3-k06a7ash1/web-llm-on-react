@@ -10,8 +10,8 @@ function App () {
   const [loading, setLoading] = useState<boolean>(false); // ロード中
  
   const initializeEngine = async () => {
-    setLoading(true);
     try {
+       setLoading(true);
       const engine = await CreateMLCEngine(
         "Qwen2.5-1.5B-Instruct-q4f16_1-MLC",
         { initProgressCallback: initProgressCallback(setResponse) },
@@ -23,7 +23,6 @@ function App () {
     } finally {
       setLoading(false);
     }      
-    setLoading(false);
   }
 
   useEffect(() => {
