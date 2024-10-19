@@ -29,7 +29,6 @@ function App () {
     setLoading(false);
   }
 
-  // 初期化
   useEffect(() => {
     const init = async () => {
       await initializeEngine();
@@ -37,7 +36,6 @@ function App () {
     init();
   }, []); 
 
-  // ボタン押下時に呼ばれる
   const handleClick = async () => {
     setLoading(true);
     try {
@@ -78,7 +76,5 @@ function App () {
     </div>
   );
 };
-
-
 
 export default App
