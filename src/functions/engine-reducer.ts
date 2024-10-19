@@ -8,7 +8,7 @@ export const engineReducer = (
 		case "START_LOADING":
 			return { ...state, loading: true };
 		case "SET_RESPONSE":
-			return { ...state, response: action.payload, loading: false };
+			return { ...state, response: action.payload };
 		case "STOP_LOADING":
 			return { ...state, loading: false };
 		default:
