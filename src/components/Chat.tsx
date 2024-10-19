@@ -5,11 +5,11 @@ import { ChatCompletionMessageParam } from "@mlc-ai/web-llm";
 import { useLlmEngine } from "../hooks/use-llm-engine";
 export function Chat() {
 	const [inputText, setInputText] = useState<string>(""); // 入力
-	const { state, dispatch, setResponse, engine } = useLlmEngine();
+	const { state, dispatch,withLoadingHasSetResponse,  engine } = useLlmEngine();
 
-	const handleClick = async () => {
-		try {
-			dispatch({ type: "START_LOADING" });
+  const handleClick =  (inputText:string) => async() =>withLoadingHasSetResponse(async (setResponse) => {
+   
+	
 			// メッセージの準備
 			const messages: ChatCompletionMessageParam[] = [
 				{ role: "user", content: inputText },
@@ -23,14 +23,10 @@ export function Chat() {
 			if (reply.choices[0].message.content) {
 				setResponse(reply.choices[0].message.content);
 			}
-		} catch (error) {
-			setResponse("Error");
-			console.error(error);
-		} finally {
-			dispatch({ type: "STOP_LOADING" });
-		}
-	};
 
+  },dispatch)
+  
+ 
 	// UI
 	return (
 		<div style={{ padding: "20px" }}>
@@ -41,7 +37,7 @@ export function Chat() {
 				cols={50}
 			/>
 			<br />
-			<button onClick={handleClick} disabled={state.loading}>
+			<button onClick={handleClick(inputText)} disabled={state.loading}>
 				{state.loading ? "Loading..." : "Send"}
 			</button>
 			<pre style={{ whiteSpace: "pre-wrap" }}>{state.response}</pre>
