@@ -8,7 +8,7 @@ export function Chat() {
 	const { state, dispatch, setResponse, engine } = useLlmEngine();
 
 	const handleClick = async () => {
-		    dispatch({ type: "START_LOADING" });
+		dispatch({ type: "START_LOADING" });
 		try {
 			// メッセージの準備
 			const messages: ChatCompletionMessageParam[] = [
