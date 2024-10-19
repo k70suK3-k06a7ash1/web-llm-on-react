@@ -2,7 +2,7 @@ import { useState ,useEffect} from 'react'
 
 import './App.css'
 import { CreateMLCEngine } from '@mlc-ai/web-llm';
-const App: React.FC = () => {
+function App () {
   const [engine, setEngine] = useState<any>(null); // エンジン
   const [inputText, setInputText] = useState<string>(''); // 入力
   const [response, setResponse] = useState<string>(''); // 出力
@@ -38,7 +38,7 @@ const App: React.FC = () => {
   }, []); 
 
   // ボタン押下時に呼ばれる
-  const onClick = async () => {
+  const handleClick = async () => {
     setLoading(true);
     try {
       // メッセージの準備
@@ -71,7 +71,7 @@ const App: React.FC = () => {
         cols={50}
       />
       <br />
-      <button onClick={onClick} disabled={loading}>
+      <button onClick={handleClick} disabled={loading}>
         {loading ? 'Loading...' : 'Send'}
       </button>
       <pre style={{ whiteSpace: 'pre-wrap' }}>{response}</pre>
