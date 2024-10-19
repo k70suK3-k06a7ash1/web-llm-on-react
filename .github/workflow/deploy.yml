@@ -1,0 +1,21 @@
+name: deploy gh-pages
+permissions:
+  contents: write
+on:
+  push:
+    branches:
+      - main
+jobs:
+  my-job:
+    name: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v1
+      - run: bun install
+      - run: bun run predeploy
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: dist
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
