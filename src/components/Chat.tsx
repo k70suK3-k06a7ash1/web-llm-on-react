@@ -1,38 +1,14 @@
-import { useState ,useEffect} from 'react'
+import { useState } from 'react'
 
 import './Chat.css'
-import { ChatCompletionMessageParam, CreateMLCEngine, MLCEngine } from '@mlc-ai/web-llm';
-import { initProgressCallback } from '../helpers/initProgressCallback';
+import { ChatCompletionMessageParam } from '@mlc-ai/web-llm';
+import { useLlmEngine } from '../hooks/use-llm-engine';
 export function Chat () {
-  const [engine, setEngine] = useState<MLCEngine | null>(null); 
   const [inputText, setInputText] = useState<string>(''); // 入力
-  const [response, setResponse] = useState<string>(''); // 出力
-  const [loading, setLoading] = useState<boolean>(false); // ロード中
- 
-  const initializeEngine = async () => {
-    try {
-       setLoading(true);
-      const engine = await CreateMLCEngine(
-        "Qwen2.5-1.5B-Instruct-q4f16_1-MLC",
-        { initProgressCallback: initProgressCallback(setResponse) },
-      );
-      setEngine(engine)
-    } catch (error) {
-      setResponse('Error');
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }      
-  }
-
-  useEffect(() => {
-   (async () => {
-      await initializeEngine();
-    })();
-  }, []); 
+  const {state,dispatch ,setResponse,  engine} = useLlmEngine()
 
   const handleClick = async () => {
-    setLoading(true);
+     dispatch({ type: "START_LOADING" });
     try {
       // メッセージの準備
       const messages: ChatCompletionMessageParam[] = [
@@ -51,7 +27,7 @@ export function Chat () {
       setResponse('Error');
       console.error(error);
     } finally {
-      setLoading(false);
+      dispatch({ type: "STOP_LOADING" });
     }
   };
 
@@ -65,10 +41,10 @@ export function Chat () {
         cols={50}
       />
       <br />
-      <button onClick={handleClick} disabled={loading}>
-        {loading ? 'Loading...' : 'Send'}
+      <button onClick={handleClick} disabled={state.loading}>
+        {state.loading ? 'Loading...' : 'Send'}
       </button>
-      <pre style={{ whiteSpace: 'pre-wrap' }}>{response}</pre>
+      <pre style={{ whiteSpace: 'pre-wrap' }}>{state.response}</pre>
     </div>
   );
 };
