@@ -5,6 +5,7 @@
 
 > [!Warning]
 > The application cannot run on Safari Browser as it does not support WebGPU.
+> If you want to use Safari, please download Technology Preview. For mobile devices, turn on the WebGPU feature flag in Settings.
 
 ## Description
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
