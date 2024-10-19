@@ -1,9 +1,9 @@
 import { useState ,useEffect} from 'react'
 
-import './App.css'
+import './Chat.css'
 import { ChatCompletionMessageParam, CreateMLCEngine, MLCEngine } from '@mlc-ai/web-llm';
-import { initProgressCallback } from './helpers/initProgressCallback';
-function App () {
+import { initProgressCallback } from '../helpers/initProgressCallback';
+export function Chat () {
   const [engine, setEngine] = useState<MLCEngine | null>(null); 
   const [inputText, setInputText] = useState<string>(''); // 入力
   const [response, setResponse] = useState<string>(''); // 出力
@@ -73,4 +73,3 @@ function App () {
   );
 };
 
-export default App
