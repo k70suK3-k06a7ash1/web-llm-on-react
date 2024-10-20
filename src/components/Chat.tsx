@@ -5,10 +5,10 @@ import type { ChatCompletionMessageParam } from "@mlc-ai/web-llm";
 import { useLlmEngine } from "../hooks/use-llm-engine";
 export function Chat() {
 	const [inputText, setInputText] = useState<string>(""); // 入力
-	const { state, dispatch, withLoadingHasSetResponse, engine } = useLlmEngine();
+	const { state, withLoadingHasDispatch, engine } = useLlmEngine();
 
 	const handleClick = (inputText: string) => () =>
-		withLoadingHasSetResponse(async (setResponse) => {
+		withLoadingHasDispatch(async (setResponse) => {
 			// メッセージの準備
 			const messages: ChatCompletionMessageParam[] = [
 				{ role: "user", content: inputText },
@@ -20,7 +20,7 @@ export function Chat() {
 			if (reply.choices[0].message.content) {
 				setResponse(reply.choices[0].message.content);
 			}
-		}, dispatch);
+		});
 
 	// UI
 	return (
