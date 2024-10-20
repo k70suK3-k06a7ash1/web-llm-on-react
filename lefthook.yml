@@ -1,5 +1,8 @@
 pre-commit:
     commands:
-      biome:
+      biome-format:
         glob: "*.{js,ts,jsx,tsx}"
         run: bunx biome format ./src --write
+      biome-lint:
+        glob: "*.{js,ts,jsx,tsx}"
+        run: bunx biome lint ./src --write

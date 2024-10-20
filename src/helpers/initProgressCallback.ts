@@ -1,6 +1,7 @@
-import { Dispatch } from "react";
+import type { InitProgressReport } from "@mlc-ai/web-llm";
+import type { Dispatch } from "react";
 
 export const initProgressCallback =
-	(setResponse: Dispatch<string>) => (initProgress: any) => {
-		setResponse(initProgress["text"]);
+	(setResponse: Dispatch<string>) => (report: InitProgressReport) => {
+		setResponse(report.text);
 	};

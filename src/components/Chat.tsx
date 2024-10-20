@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import "./Chat.css";
-import { ChatCompletionMessageParam } from "@mlc-ai/web-llm";
+import type { ChatCompletionMessageParam } from "@mlc-ai/web-llm";
 import { useLlmEngine } from "../hooks/use-llm-engine";
 export function Chat() {
 	const [inputText, setInputText] = useState<string>(""); // 入力
@@ -32,7 +32,11 @@ export function Chat() {
 				cols={50}
 			/>
 			<br />
-			<button onClick={handleClick(inputText)} disabled={state.loading}>
+			<button
+				type="button"
+				onClick={handleClick(inputText)}
+				disabled={state.loading}
+			>
 				{state.loading ? "Loading..." : "Send"}
 			</button>
 			<pre style={{ whiteSpace: "pre-wrap" }}>{state.response}</pre>

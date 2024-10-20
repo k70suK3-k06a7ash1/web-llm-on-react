@@ -1,9 +1,9 @@
-import { CreateMLCEngine, MLCEngine } from "@mlc-ai/web-llm";
-import { Dispatch, useEffect, useReducer, useState } from "react";
+import { CreateMLCEngine, type MLCEngine } from "@mlc-ai/web-llm";
+import { type Dispatch, useEffect, useReducer, useState } from "react";
 import { initProgressCallback } from "../helpers/initProgressCallback";
 import { initialState } from "../constants";
 import { engineReducer } from "../functions/engine-reducer";
-import { EngineAction } from "../types";
+import type { EngineAction } from "../types";
 
 export const useLlmEngine = () => {
 	const [engine, setEngine] = useState<MLCEngine | null>(null);
@@ -40,6 +40,7 @@ export const useLlmEngine = () => {
 			setEngine(engine);
 		}, dispatch);
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		(async () => {
 			await initializeEngine();

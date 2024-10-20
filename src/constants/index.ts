@@ -1,4 +1,4 @@
-import { EngineState } from "../types";
+import type { EngineState } from "../types";
 
 export const initialState: EngineState = {
 	response: "",

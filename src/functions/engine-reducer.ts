@@ -1,4 +1,4 @@
-import { EngineState, EngineAction } from "../types";
+import type { EngineState, EngineAction } from "../types";
 
 export const engineReducer = (
 	state: EngineState,
