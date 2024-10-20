@@ -32,7 +32,7 @@ export const useLlmEngine = () => {
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		(async () => {
-			await initializeEngine({ withLoadingHasDispatch, setEngine })();
+			await initializeEngine({ withLoadingHasDispatch, setEngine });
 		})();
 	}, []);
 
