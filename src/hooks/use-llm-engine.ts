@@ -1,9 +1,9 @@
-import { CreateMLCEngine, type MLCEngine } from "@mlc-ai/web-llm";
+import type { MLCEngine } from "@mlc-ai/web-llm";
 import { type Dispatch, useEffect, useReducer, useState } from "react";
-import { initProgressCallback } from "../helpers/initProgressCallback";
 import { initialState } from "../constants";
 import { engineReducer } from "../functions/engine-reducer";
 import type { EngineAction } from "../types";
+import { initializeEngine } from "../functions/initialize-engine";
 
 export const useLlmEngine = () => {
 	const [engine, setEngine] = useState<MLCEngine | null>(null);
@@ -29,21 +29,12 @@ export const useLlmEngine = () => {
 		};
 	const withLoadingHasDispatch = withLoading(dispatch);
 
-	const initializeEngine = async () =>
-		await withLoadingHasDispatch(async (setResponse) => {
-			const engine = await CreateMLCEngine(
-				"Qwen2.5-1.5B-Instruct-q4f16_1-MLC",
-				{ initProgressCallback: initProgressCallback(setResponse) },
-			);
-			setEngine(engine);
-		});
-
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		(async () => {
-			await initializeEngine();
+			await initializeEngine({ withLoadingHasDispatch, setEngine })();
 		})();
 	}, []);
 
-	return { state, withLoadingHasDispatch, engine };
+	return { state, setEngine, withLoadingHasDispatch, engine };
 };
