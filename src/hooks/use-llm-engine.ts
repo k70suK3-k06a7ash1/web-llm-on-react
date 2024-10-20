@@ -30,7 +30,7 @@ export const useLlmEngine = () => {
 	const withLoadingHasDispatch = withLoading(dispatch);
 
 	const initializeEngine = async () =>
-		withLoadingHasDispatch(async (setResponse) => {
+		await withLoadingHasDispatch(async (setResponse) => {
 			const engine = await CreateMLCEngine(
 				"Qwen2.5-1.5B-Instruct-q4f16_1-MLC",
 				{ initProgressCallback: initProgressCallback(setResponse) },
